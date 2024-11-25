@@ -35,7 +35,7 @@
             color: white;
             transition: background-color 0.5s, color 0.5s;
         }
-        #historyTable {
+        #historyTable, #resultTable {
             width: 100%;
             margin-top: 20px;
         }
@@ -67,6 +67,7 @@
                         <th>#</th>
                         <th>Result</th>
                         <th>Multiplier</th>
+                        <th>Correct Answers</th>
                         <th>Time Left</th>
                     </tr>
                 </thead>
@@ -88,6 +89,18 @@
         <!-- Result Section -->
         <div id="result" class="hidden">
             <h3 id="resultMessage"></h3>
+            <h4 class="mt-3">Your Performance:</h4>
+            <p id="timeLeftSummary"></p>
+            <h5>Multiplication Results:</h5>
+            <table class="table table-striped mt-3" id="resultTable">
+                <thead>
+                    <tr>
+                        <th>Question</th>
+                        <th>Correct Answer</th>
+                    </tr>
+                </thead>
+                <tbody id="resultTableBody"></tbody>
+            </table>
             <button class="btn btn-secondary mt-3" id="restartGame">Back to Main Menu</button>
         </div>
     </div>

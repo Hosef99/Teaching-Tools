@@ -51,6 +51,7 @@ function updateGameHistory() {
             <td>${index + 1}</td>
             <td>${entry.result}</td>
             <td>${entry.multiplier}</td>
+            <td>${entry.correctAnswers}</td>
             <td>${entry.timeLeft}s</td>
         `;
         gameHistoryEl.appendChild(row);
@@ -146,8 +147,30 @@ function endGame(message) {
     resultDiv.classList.remove('hidden');
     resultMessageEl.innerText = message;
 
+    // Calculate correct answers
+    const correctAnswers = sessionRecord.length;
+
+    // Populate time left summary
+    const timeSummary = message.includes('win') ? `Time Left: ${timeLeft} seconds` : 'Time Expired';
+    document.getElementById('timeLeftSummary').innerText = timeSummary;
+
+    // Populate results table
+    const resultTableBody = document.getElementById('resultTableBody');
+    resultTableBody.innerHTML = '';
+    sessionRecord.forEach((entry) => {
+        const [question, correctAnswer] = entry.split(' = ');
+        const row = document.createElement('tr');
+        row.innerHTML = `
+        <td>${question}</td>
+        <td>${correctAnswer}</td>
+    `;
+        resultTableBody.appendChild(row);
+    });
+
+
+    // Save game history
     const result = message.includes('win') ? 'Win' : 'Lose';
-    gameHistory.push({ result, multiplier, timeLeft });
+    gameHistory.push({ result, multiplier, correctAnswers, timeLeft });
     setCookie('gameHistory', gameHistory, 30);
     updateGameHistory();
 }
@@ -161,10 +184,10 @@ function restartGame() {
 // Event Listeners
 startGameBtn.addEventListener('click', startGame);
 submitAnswerBtn.addEventListener('click', checkAnswer);
-answerInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') checkAnswer();
-});
 restartGameBtn.addEventListener('click', restartGame);
-
-// Initial Display of Game History
+answerInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        checkAnswer();
+    }
+});
 updateGameHistory();
