@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplication Game</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .game-container {
+            max-width: 800px;
+            margin: 30px auto;
+            text-align: center;
+        }
+        #question {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        #record {
+            font-size: 1rem;
+            text-align: left;
+            margin: 20px auto;
+            max-width: 600px;
+        }
+        .hidden {
+            display: none;
+        }
+        #wrongCount {
+            font-size: 1.5rem;
+        }
+        .wrong-flash {
+            background-color: red;
+            color: white;
+            transition: background-color 0.5s, color 0.5s;
+        }
+        #historyTable, #resultTable {
+            width: 100%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1 class="mb-4">Division Game</h1>
+        
+        <!-- Main Menu -->
+        <div id="menu">
+            <button class="btn btn-primary" id="startGame">Start Game</button>
+            <h3 class="mt-5">Game History</h3>
+            <table class="table table-striped mt-3" id="historyTable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Result</th>
+                        <th>Correct Answers</th>
+                        <th>Time Left</th>
+                    </tr>
+                </thead>
+                <tbody id="gameHistory"></tbody>
+            </table>
+        </div>
+
+        <!-- Game Section -->
+        <div id="game" class="hidden">
+            <h3>Time Left: <span id="timer">30</span> seconds</h3>
+            <div id="question"></div>
+            <input type="number" id="answer" class="form-control w-50 mx-auto mb-3" placeholder="Your answer">
+            <button class="btn btn-success mt-2" id="submitAnswer">Submit</button>
+            <p class="mt-3">Wrong Answers: <span id="wrongCount">0</span> / 3</p>
+            <h5 class="mt-4">Answered Questions:</h5>
+            <ul id="record" class="list-group"></ul>
+        </div>
+
+        <!-- Result Section -->
+        <div id="result" class="hidden">
+            <h3 id="resultMessage"></h3>
+            <h4 class="mt-3">Your Performance:</h4>
+            <p id="timeLeftSummary"></p>
+            <h5>Multiplication Results:</h5>
+            <table class="table table-striped mt-3" id="resultTable">
+                <thead>
+                    <tr>
+                        <th>Question</th>
+                        <th>Correct Answer</th>
+                    </tr>
+                </thead>
+                <tbody id="resultTableBody"></tbody>
+            </table>
+            <button class="btn btn-secondary mt-3" id="restartGame">Back to Main Menu</button>
+        </div>
+    </div>
+    <script src="division.js"></script>
+</body>
+</html>
